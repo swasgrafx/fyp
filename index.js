@@ -1,65 +1,30 @@
-// const fetchPromise = fetch("https://neodigm.github.io/FED_Programming_Challenge/products.json")
+const fetchPromise = fetch("https://neodigm.github.io/FED_Programming_Challenge/products.json")
 // Target main element
-// .then(response => response.json())
-// .then(productsArray => renderAllProducts(productsArray))
+.then(function (response) {
+    return response.json();
+  })
+  .then(function (data) {
+    appendData(data);
 
-// function renderAllProducts(productsArray){
-//     productsArray.forEach(product => renderOneProduct(product))
-// }
+  })
+  .catch(function (err) {
+    // console.log(err);
+  });
 
-// const findDiv = document.querySelector("#main")
-// function renderOneProduct(products){
-//     const newElement = document.createElement("div")
-//     newElement.className = "content"
-//     newElement.innerHTML = `
-//     <div class="item-card">
-//         <div class="center">
-//         <h2>${products.cat}</h2>
-//         <p>Price: $${products.price}</p><p>Sale Price: $${products.sale}</p>
-//         <button class="add-item">Add to Cart</button>
-//         <div>
-//     <div>    
-//     `
-//     findDiv.append(newElement)
-// }
+function appendData(data) {
+  var mainContainer = document.getElementById("main");
+  for (var i = 0; i < data.length; i++) {
+    // append each product to our page
+    // console.log(data);
+  var div = document.createElement("div");
+//   console.log(data);
 
+  div.innerHTML = 
+    'Category: ' + data[i].cat + data[i].product + data[i].price + data[i].sale;
 
-const main = document.getElementById("main");
+//   console.log(data);
 
-async function getProducts() {
-    let url = 'https://neodigm.github.io/FED_Programming_Challenge/products.json';
-    try {
-        let res = await fetch(url);
-        return await res.json();
-    } catch (error) {
-        console.log(error);
+  mainContainer.appendChild(div);
     }
-}
-async function renderProducts() {
-    let products = await getProducts();
-    let html = '';
-
-    products.map(product => {
-        let htmlSegment = `<div class="main">
-                            <h2>('#Cat') ('#Product')</h2>
-                            <h2>('#Price') ('#Sale')</h2>
-                            </div>`;
-        console.log(products);
-        html += htmlSegment;
-    });
-    // products.map(product => {
-    //     let htmlSegment = `<div class="main">
-    //                         <h2>${products.cat} ${products.product}</h2>
-    //                         <h2>${products.price} ${products.sale}</h2>
-    //                         </div>`;
-    //     console.log(products);
-    //     html += htmlSegment;
-    // });
-
-    let main = document.querySelector('.main');
-    main.innerHTML = products;
-    console.log(products);
 
 }
-
-renderProducts();
